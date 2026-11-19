@@ -1,77 +1,94 @@
-# 🚦 VR-TSD: A Real-World Dataset and a Lightweight YOLOv8n Model for Traffic Sign Recognition in Vietnam
+<h1 align="center">🚦 VR-TSD: Vietnamese Traffic Sign Recognition</h1>
 
-**Paper:** VR-TSD: A Real-World Dataset and a Lightweight YOLOv8n Model for Traffic Sign Recognition in Vietnam  
-**Conference:** CSA 2025 – The 17th International Conference on Computer Science and its Applications
+<p align="center">
+  <b>A Real-World Dataset and a Lightweight YOLOv8n Model for Traffic Sign Recognition in Vietnam</b><br/>
+  <i>Published at CSA 2025 – The 17th International Conference on Computer Science and its Applications (Springer)</i>
+</p>
 
----
-**Demo:** Integrate voice notification feature: https://drive.google.com/file/d/1JtekjwLvfJC0tHHrWJdlvd40RyeMrAkl/view
-## 1. Introduction
-
-Accurate and real-time traffic sign recognition is a key component of Advanced Driver Assistance Systems (ADAS) and autonomous vehicles. This task requires not only high recognition accuracy but also fast and stable inference, especially when deployed on resource-constrained edge devices.
-
-Most existing studies rely on foreign datasets or limited domestic datasets that do not fully reflect real traffic conditions in Vietnam. In practice, traffic signs may appear faded, partially occluded, or captured under adverse lighting and weather conditions, leading to degraded model performance when deployed in real-world scenarios.
-
-To address this gap, this paper proposes a new real-world traffic sign dataset and a lightweight detection framework tailored to Vietnamese traffic environments.
-
----
-
-## 2. VR-TSD Dataset
-
-The **Vietnamese Real-world Traffic Sign Dataset (VR-TSD)** is constructed from real traffic scenes captured in Vietnam with the following characteristics:
-
-- 58 common Vietnamese traffic sign categories
-- Diverse and challenging acquisition conditions:
-  - Low-light and nighttime scenes
-  - Rainy and adverse weather conditions
-  - Occluded and faded traffic signs
-  - Dense urban traffic and national highways
-
-The dataset is designed to bridge the gap between academic benchmarks and real-world deployment scenarios.
+<p align="center">
+  <a href="https://link.springer.com/chapter/10.1007/978-981-95-7896-2_10"><img src="https://img.shields.io/badge/Paper-Springer-005A9C?style=flat-square&logo=springer&logoColor=white" alt="Paper"/></a>
+  <a href="https://drive.google.com/file/d/1JtekjwLvfJC0tHHrWJdlvd40RyeMrAkl/view?usp=drive_link"><img src="https://img.shields.io/badge/Demo-Video-FF0000?style=flat-square&logo=googledrive&logoColor=white" alt="Demo"/></a>
+  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python"/>
+  <img src="https://img.shields.io/badge/YOLOv8n-Ultralytics-111F68?style=flat-square" alt="YOLOv8n"/>
+  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white" alt="PyTorch"/>
+</p>
 
 ---
 
-## 3. Proposed Method
+## 📌 Overview
 
-Based on the VR-TSD dataset, we develop a lightweight traffic sign recognition system using the **YOLOv8n** architecture. The model is optimized to achieve a balanced trade-off among:
+Real-time traffic sign recognition is a key component of Advanced Driver Assistance Systems (ADAS) and autonomous vehicles. Most existing work relies on foreign datasets that do not reflect real Vietnamese road conditions, where signs are often **faded, occluded, or captured in poor lighting and bad weather**.
 
-- Detection accuracy
-- Real-time inference speed
-- Compact model size for edge deployment
+This project introduces **VR-TSD** (Vietnamese Real-world Traffic Sign Dataset) and a lightweight **YOLOv8n** detector, plus a real-time pipeline with **Vietnamese voice alerts** for drivers.
 
-The proposed pipeline covers data preprocessing, model training, evaluation, and deployment on mobile devices.
+## 📊 Results
 
----
+| Metric | Value |
+|---|---|
+| mAP@0.5 | **0.9434** |
+| mAP@0.5:0.95 | **0.7567** |
+| Speed – NVIDIA A100 | **168.86 FPS** (5.92 ms / image) |
+| Speed – iPhone 11 Pro Max | **77.5 FPS** |
+| Model size | **~6 MB** |
 
-## 4. Experimental Results
+Both platforms exceed the ~10 FPS typically required for ADAS traffic sign recognition.
 
-The YOLOv8n-based model achieves strong performance on the VR-TSD dataset:
+## 🗂️ Dataset
 
-- **mAP@0.5:** 0.9434  
-- **mAP@0.5:0.95:** 0.7567  
+- **58** common Vietnamese traffic sign categories
+- Real traffic scenes: low light and night, rain, occluded and faded signs, dense urban traffic and national highways
+- End-to-end pipeline: collection → preprocessing → manual labeling
+- Benchmarked **YOLOv5, YOLOv8 and YOLOv11**; YOLOv8n gave the best accuracy / latency trade-off
 
-**Inference speed:**
-- 168.86 FPS on NVIDIA A100 GPU
-- 77.5 FPS on iPhone 11 Pro Max
+## 🔄 Pipeline
 
-**Model size:** approximately 6 MB
+```mermaid
+flowchart LR
+    A[Video / camera frame] --> B[YOLOv8n detector]
+    B --> C[Temporal filter<br/>stable over N frames]
+    C --> D[Cooldown per sign]
+    D --> E[gTTS Vietnamese<br/>voice alert]
+    B --> F[Annotated output video]
+```
 
-The results demonstrate that the proposed system satisfies real-time requirements for ADAS applications, where traffic sign recognition typically requires a minimum of 10 FPS.
+The voice module only announces a sign after it has been detected consistently across several frames, and applies a per-sign cooldown to avoid repeated alerts.
 
----
+## 📁 Project Structure
 
-## 5. Contributions
+```
+Vietnamese-Traffic-Sign-Detection/
+├── main/
+│   ├── model/best.pt                               # trained YOLOv8n weights
+│   └── src/
+│       ├── Vietnamese_Traffic_Signs_Detection.ipynb  # training & evaluation (Colab)
+│       └── main_voice.py                           # real-time inference + voice alerts
+├── data-test/test_voice.mp4                        # sample test video
+└── requirements.txt
+```
 
-The main contributions of this work are summarized as follows:
+## 🚀 Quick Start
 
-1. A new public real-world Vietnamese traffic sign dataset with 58 categories collected under challenging conditions.
-2. A lightweight YOLOv8n-based detection model optimized for edge devices with high accuracy and real-time performance.
-3. An end-to-end validated system tested on mainstream mobile devices, demonstrating practical feasibility for ADAS deployment.
+```bash
+git clone https://github.com/LinhNhat07/Vietnamese-Traffic-Sign-Detection.git
+cd Vietnamese-Traffic-Sign-Detection
+pip install -r requirements.txt
+python main/src/main_voice.py
+```
 
----
+The annotated video is saved to `main/results/`. Press `q` to stop. Thresholds, FPS and cooldowns can be changed in the `CONFIG` block at the top of `main_voice.py`.
 
-## 6. Potential Applications
+## 🛠️ Tech Stack
 
-- Advanced Driver Assistance Systems (ADAS)
-- Low- to mid-level autonomous driving systems
-- Intelligent traffic monitoring
-- Edge AI applications on mobile and embedded devices
+`Python` · `PyTorch` · `Ultralytics YOLOv8` · `OpenCV` · `gTTS` · `pygame` · `Roboflow` · `Google Colab`
+
+## 📄 Citation
+
+If you use this work, please cite the paper:
+
+> **VR-TSD: A Real-World Dataset and a Lightweight YOLOv8n Model for Traffic Sign Recognition in Vietnam.**
+> In: *Proceedings of CSA 2025 – The 17th International Conference on Computer Science and its Applications*, Springer.
+> DOI: [10.1007/978-981-95-7896-2_10](https://doi.org/10.1007/978-981-95-7896-2_10)
+
+## 👤 Author
+
+**Nguyen Hong Nhat Linh** – AI Engineer · [GitHub](https://github.com/LinhNhat07) · nlinh.nh7@gmail.com

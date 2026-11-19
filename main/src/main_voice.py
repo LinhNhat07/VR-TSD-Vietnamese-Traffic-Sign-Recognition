@@ -16,10 +16,13 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # ====================== CONFIG ======================
+# Paths are resolved relative to the repository root, so the script runs from any directory.
+ROOT = Path(__file__).resolve().parents[2]
+
 CONFIG = {
-    "model_path": "/Users/LinhNh/Main_Project/Traffic Sign/main/model/best.pt",
-    "video_path": "/Users/LinhNh/Main_Project/Traffic Sign/data-test/test_voice.mp4",
-    "output_dir": "/Users/LinhNh/Main_Project/Traffic Sign/main/results",
+    "model_path": str(ROOT / "main" / "model" / "best.pt"),
+    "video_path": str(ROOT / "data-test" / "test_voice.mp4"),
+    "output_dir": str(ROOT / "main" / "results"),
     "conf_threshold": 0.55,
     "iou_threshold": 0.45,
     "target_fps": 15,
