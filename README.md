@@ -167,9 +167,16 @@ VR-TSD-Vietnamese-Traffic-Sign-Recognition/
 
 ```bibtex
 @inproceedings{vrtsd2025,
-  title     = {VR-TSD: A Real-World Dataset and a Lightweight YOLOv8n Model for Traffic Sign Recognition in Vietnam},
-  author    = {Nguyen Ngoc, Dinh and Nguyen Hong Nhat, Linh and Hoang Van, Quy and Nguyen, Ham and Bui, Huong and Nguyen, Phuong Anh},
-  booktitle = {The 17th International Conference on Computer Science and its Applications (CSA 2025)},
+  title     = {VR-TSD: A Real-World Dataset and a Lightweight YOLOv8n Model
+               for Traffic Sign Recognition in Vietnam},
+  author    = {{Dinh Nguyen Ngoc} and
+               {Linh Nguyen Hong Nhat} and
+               {Quy Hoang Van} and
+               {Ham Nguyen} and
+               {Huong Bui} and
+               {Phuong Anh Nguyen}},
+  booktitle = {The 17th International Conference on Computer Science
+               and its Applications (CSA 2025)},
   publisher = {Springer},
   year      = {2025},
   doi       = {10.1007/978-981-95-7896-2_10}
