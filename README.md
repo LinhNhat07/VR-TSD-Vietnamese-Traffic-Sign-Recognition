@@ -35,6 +35,14 @@ This repository contains two parts:
 Dinh Nguyen Ngoc, **Linh Nguyen Hong Nhat**, Quy Hoang Van, Ham Nguyen, Huong Bui (corresponding author), Phuong Anh Nguyen.
 HUTECH University · HCMC University of Technology and Education · Thuyloi University · Swinburne Vietnam (FPT University)
 
+### My contribution
+- **Data:** collected traffic videos and images, sampled frames, removed blurred and duplicate frames, and manually labeled bounding boxes on Roboflow
+- **Preprocessing:** standardized the dataset (640×640), shuffled and split it into train / val / test, and checked class and split statistics
+- **Training & benchmarking:** trained and tuned the 6 YOLO variants on Colab A100 (3 seeds each) and compared accuracy, speed and model size
+- **Evaluation:** validation, held-out testing, per-class analysis and false positive / false negative analysis
+- **Voice alert extension:** designed and built the real-time Vietnamese voice alert pipeline (Part 2)
+- On-device deployment on smartphones (NCNN) was mainly done by co-authors.
+
 ### VR-TSD dataset
 
 | Item | Value |
