@@ -56,7 +56,7 @@ The voice module only announces a sign after it has been detected consistently a
 ## 📁 Project Structure
 
 ```
-Vietnamese-Traffic-Sign-Detection/
+VR-TSD-Vietnamese-Traffic-Sign-Recognition/
 ├── main/
 │   ├── model/best.pt                               # trained YOLOv8n weights
 │   └── src/
@@ -69,8 +69,8 @@ Vietnamese-Traffic-Sign-Detection/
 ## 🚀 Quick Start
 
 ```bash
-git clone https://github.com/LinhNhat07/Vietnamese-Traffic-Sign-Detection.git
-cd Vietnamese-Traffic-Sign-Detection
+git clone https://github.com/LinhNhat07/VR-TSD-Vietnamese-Traffic-Sign-Recognition.git
+cd VR-TSD-Vietnamese-Traffic-Sign-Recognition
 pip install -r requirements.txt
 python main/src/main_voice.py
 ```
